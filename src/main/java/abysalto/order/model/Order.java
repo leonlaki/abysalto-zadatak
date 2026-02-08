@@ -64,10 +64,100 @@ public class Order {
         this.buyer = buyer;
     }
 
+    //Izracunati ukupni iznos racuna
     public void calculateTotalAmount() {
         this.totalAmount = items.stream()
                 .map(Item::getItemTotalPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    public Order(Buyer buyer, OrderStatus orderStatus,
+                 LocalDateTime timeOfOrder, PaymentMethod paymentMethod,
+                 Location deliveryAddress, String contactNumber,
+                 String note, List<Item> items,
+                 BigDecimal totalAmount) {
+        this.buyer = buyer;
+        this.orderStatus = orderStatus;
+        this.timeOfOrder = timeOfOrder;
+        this.paymentMethod = paymentMethod;
+        this.deliveryAddress = deliveryAddress;
+        this.contactNumber = contactNumber;
+        this.note = note;
+        this.items = items;
+        this.totalAmount = totalAmount;
+    }
+
+    public Order() {}
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public LocalDateTime getTimeOfOrder() {
+        return timeOfOrder;
+    }
+
+    public void setTimeOfOrder(LocalDateTime timeOfOrder) {
+        this.timeOfOrder = timeOfOrder;
+    }
+
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public Location getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(Location deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
+    }
 }

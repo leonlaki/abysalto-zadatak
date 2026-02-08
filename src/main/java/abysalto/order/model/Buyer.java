@@ -7,8 +7,7 @@ import jakarta.persistence.Table;
 @Table(name = "buyers")
 public class Buyer {
 
-    private Long buyer_id;
-
+    private Long id;
     private String name;
     private String surname;
     private String title;

@@ -52,6 +52,8 @@ public class Order {
     //Ukupni iznos narudzbe
     private BigDecimal totalAmount;
 
+    private String currency;
+
     public Buyer getBuyer() {
         return buyer;
     }
@@ -71,7 +73,7 @@ public class Order {
                  LocalDateTime timeOfOrder, PaymentMethod paymentMethod,
                  Location deliveryAddress, String contactNumber,
                  String note, List<Item> items,
-                 BigDecimal totalAmount) {
+                 BigDecimal totalAmount, String currency) {
         this.buyer = buyer;
         this.orderStatus = orderStatus;
         this.timeOfOrder = timeOfOrder;
@@ -81,6 +83,7 @@ public class Order {
         this.note = note;
         this.items = items;
         this.totalAmount = totalAmount;
+        this.currency = currency;
     }
 
     public Order() {}
@@ -155,5 +158,13 @@ public class Order {
 
     public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

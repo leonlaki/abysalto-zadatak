@@ -6,6 +6,7 @@ import abysalto.order.utility.OrderStatus;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,9 +14,11 @@ import java.util.List;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final CurrencyService currencyService;
 
-    public OrderService(OrderRepository orderRepository) {
+    public OrderService(OrderRepository orderRepository, CurrencyService currencyService) {
         this.orderRepository = orderRepository;
+        this.currencyService = currencyService;
     }
 
     //Dodati nove narudžbe
@@ -27,6 +30,7 @@ public class OrderService {
 
         order.setOrderStatus(OrderStatus.PENDING);
         order.setTimeOfOrder(LocalDateTime.now());
+        order.setCurrency("EUR");
         order.calculateTotalAmount();
 
         return orderRepository.save(order);
@@ -51,6 +55,23 @@ public class OrderService {
                 : Sort.by("totalAmount").descending();
 
         return orderRepository.findAll(sort);
+    }
+
+    public Order getOrderWithCurrency(Long orderId, String currency) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
+
+        if(currency == null || currency.equalsIgnoreCase("EUR")) {
+            order.setCurrency("EUR");
+            return order;
+        }
+
+        order.setCurrency(currency.toUpperCase());
+
+        order.setTotalAmount(currencyService.convertFromEuro(order.getTotalAmount(), currency));
+
+        order.getItems().forEach(item -> item.setPrice(currencyService.convertFromEuro(item.getPrice(), currency)));
+
+        return order;
     }
 
 }

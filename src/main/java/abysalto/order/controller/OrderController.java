@@ -66,4 +66,11 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getOrdersSortedByTotalAmount(ascending));
     }
 
+    @GetMapping("/{orderId}")
+    public ResponseEntity<Order> getOrder(@PathVariable Long orderId, @RequestParam(defaultValue = "EUR") String currency) {
+        return ResponseEntity.ok(
+                orderService.getOrderWithCurrency(orderId, currency)
+        );
+    }
+
 }

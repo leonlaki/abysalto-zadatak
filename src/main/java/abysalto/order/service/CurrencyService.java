@@ -1,5 +1,6 @@
 package abysalto.order.service;
 
+import abysalto.order.handler.CurrencyNotSupportedException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -35,7 +36,7 @@ public class CurrencyService {
         Double rate = rates.get(targetCurrency.toUpperCase());
 
         if(rate == null) {
-            throw new IllegalArgumentException("Unsupported currency: " + targetCurrency);
+            throw new CurrencyNotSupportedException(targetCurrency);
         }
 
         return amount.multiply(BigDecimal.valueOf(rate)).setScale(2, RoundingMode.HALF_UP);

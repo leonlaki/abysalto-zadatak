@@ -34,7 +34,7 @@ public class CurrencyService {
 
         Double rate = rates.get(targetCurrency.toUpperCase());
 
-        if(rate == null ) {
+        if(rate == null) {
             throw new IllegalArgumentException("Unsupported currency: " + targetCurrency);
         }
 

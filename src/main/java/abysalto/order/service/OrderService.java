@@ -4,10 +4,12 @@ import abysalto.order.model.Order;
 import abysalto.order.repository.OrderRepository;
 import abysalto.order.utility.OrderStatus;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Service
 public class OrderService {
 
     private final OrderRepository orderRepository;

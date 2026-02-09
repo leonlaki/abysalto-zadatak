@@ -20,9 +20,7 @@ public class Order {
     private Long id;
 
     //Ime kupca
-    @ManyToOne
-    @JoinColumn(name = "buyer_id")
-    @NotNull
+    @Embedded
     private Buyer buyer;
 
     //Status (na čekanju, u pripremi, završena)
@@ -48,9 +46,7 @@ public class Order {
     private String note;
 
     //Popis artikala s nazivom, količinom i cijenom
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id")
-    @NotEmpty
+    @ElementCollection
     private List<Item> items;
 
     //Ukupni iznos narudzbe
